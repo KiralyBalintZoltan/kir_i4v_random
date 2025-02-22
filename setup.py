@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 from glob import glob
 import os
 
-package_name = 'Kir_I4V_random'
+package_name = 'kir_i4v_random'
 
 setup(
     name=package_name,
@@ -23,7 +23,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            # 'control_vehicle = Kir_I4V_random.control_vehicle:main',
+            # 'control_vehicle = kir_i4v_random.control_vehicle:main',
         ],
     },
 )

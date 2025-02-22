@@ -1,4 +1,4 @@
-# `Kir_I4V_random` package
+# `kir_i4v_random` package
 ROS 2 python package.  [![Static Badge](https://img.shields.io/badge/ROS_2-Humble-34aec5)](https://docs.ros.org/en/humble/)
 ## Packages and build
 
@@ -9,7 +9,7 @@ It is assumed that the workspace is `~/ros2_ws/`.
 cd ~/ros2_ws/src
 ```
 ``` r
-git clone https://github.com/KiralyBalintZoltan/Kir_I4V_random
+git clone https://github.com/KiralyBalintZoltan/kir_i4v_random
 ```
 
 ### Build ROS 2 packages
@@ -17,7 +17,7 @@ git clone https://github.com/KiralyBalintZoltan/Kir_I4V_random
 cd ~/ros2_ws
 ```
 ``` r
-colcon build --packages-select Kir_I4V_random --symlink-install
+colcon build --packages-select kir_i4v_random --symlink-install
 ```
 
 <details>
@@ -29,12 +29,12 @@ source ~/ros2_ws/install/setup.bash
 </details>
 
 ``` r
-ros2 launch Kir_I4V_random launch_example1.launch.py
+ros2 launch kir_i4v_random launch_example1.launch.py
 ```
 
 # Delete this part if you are using it as a template
 
-ROS 2 pacage template, to get started, use template by clicking on the Green button labeled [`Use this template`](https://github.com/KiralyBalintZoltan/Kir_I4V_random/generate) / [`Create new repository`](https://github.com/KiralyBalintZoltan/Kir_I4V_random/generate). 
+ROS 2 pacage template, to get started, use template by clicking on the Green button labeled [`Use this template`](https://github.com/KiralyBalintZoltan/kir_i4v_random/generate) / [`Create new repository`](https://github.com/KiralyBalintZoltan/kir_i4v_random/generate). 
 
 <p align="center"><img src="img/use_this_template01.png" width="60%" /></p>
 
@@ -45,7 +45,7 @@ Let's assume
 
 Replace everything in the cloned repo:
 
-- `Kir_I4V_random` >> `cool_ros2_package` (the folder was already renamed after `Use this template`)
+- `kir_i4v_random` >> `cool_ros2_package` (the folder was already renamed after `Use this template`)
 - `KiralyBalintZoltan` >> `mycoolusername`
 - find all `todo` strings and fill the blanks
 
