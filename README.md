@@ -9,7 +9,7 @@ It is assumed that the workspace is `~/ros2_ws/`.
 cd ~/ros2_ws/src
 ```
 ``` r
-git clone https://github.com/KiralyBalintZoltan/kir_i4v_random
+git clone https://github.com/KiralyBalintZoltan/Kir_I4V_random
 ```
 
 ### Build ROS 2 packages
@@ -31,29 +31,3 @@ source ~/ros2_ws/install/setup.bash
 ``` r
 ros2 launch kir_i4v_random launch_example1.launch.py
 ```
-
-# Delete this part if you are using it as a template
-
-ROS 2 pacage template, to get started, use template by clicking on the Green button labeled [`Use this template`](https://github.com/KiralyBalintZoltan/kir_i4v_random/generate) / [`Create new repository`](https://github.com/KiralyBalintZoltan/kir_i4v_random/generate). 
-
-<p align="center"><img src="img/use_this_template01.png" width="60%" /></p>
-
-
-Let's assume 
-- your Github username is `mycoolusername`
-- your ROS 2 repo shold be `cool_ros2_package`
-
-Replace everything in the cloned repo:
-
-- `kir_i4v_random` >> `cool_ros2_package` (the folder was already renamed after `Use this template`)
-- `KiralyBalintZoltan` >> `mycoolusername`
-- find all `todo` strings and fill the blanks
-
-The easiest way is VS code:
-
-<p align="center"><img src="img/replace01.png" width="90%" /></p>
-
-> [!IMPORTANT]  
-> Don't forget to rename the directory (folder) and the file too.
-
-Now `colcon build` your ROS 2 package and you can start wokring.
