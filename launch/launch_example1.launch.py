@@ -24,9 +24,9 @@ def generate_launch_description():
                 ('/output/cmd_vel', '/turtlesim2/turtle1/cmd_vel'),
             ]
         ),
-        # Node(
-        #     package='ros2_python_template',
-        #     executable='simple_sub_node',
-        #     output='screen',
-        # ),
+         Node(
+             package='ros2_python_template',
+             executable='simple_sub_node',
+             output='screen',
+         ),
     ])

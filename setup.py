@@ -23,7 +23,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            # 'control_vehicle = kir_i4v_random.control_vehicle:main',
+            'draw_flower = kir_i4v_random.draw_flower:main',
         ],
     },
 )
