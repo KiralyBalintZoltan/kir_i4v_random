@@ -1,80 +1,70 @@
 #!/usr/bin/env python3
-
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
-import math
+from turtlesim.msg import Pose
 
-class StickmanDrawer(Node):
+class FlowerDrawer(Node):
     def __init__(self):
-        super().__init__('stickman_drawer')
-        # Create a publisher to send velocity commands to the turtle
-        self.publisher = self.create_publisher(Twist, '/turtle1/cmd_vel', 10)
-        self.timer = self.create_timer(0.1, self.draw_stickman)
-        self.step = 0
-        self.drawing_steps = [
-            # Head (circle)
-            ("circle", 1.0, 0.0, 2 * math.pi),  # Draw a circle for the head
-            # Body (line)
-            ("line", 0.0, -1.5, 0.0),  # Move down to draw the body
-            # Left arm (line)
-            ("line", -1.5, 1.0, 0.0),  # Move to the left for the left arm
-            #Move
-            ("line", 1.5, -1.0, 0.0),   # Move to the right for the right arm
-            # Right arm (line)
-            ("line", 0.0, 1.0, 1.5),   # Move to the right for the right arm
-            #Move2
-            ("line", 1.5, -1.0, 0.0),   # Move to the right for the right arm
-             # Body (line)
-            ("line", 0.0, -1.0, 0.0),  # Move down to draw the body
-            # Left leg (line)
-            ("line", 1.5, -1.0, 0.0),  # Move to the left for the left leg
-            #Move2
-            ("line", -1.5, 1.0, 0.0),   # Move to the right for the right arm
-            # Right leg (line)
-            ("line", 1.5, -1.0, 0.0),   # Move to the right for the right leg
-        ]
-        self.current_step = 0
+        super().__init__('flower_drawer')
+        self.publisher_ = self.create_publisher(Twist, 'turtle1/cmd_vel', 10)
+        self.subscription = self.create_subscription(Pose, 'turtle1/pose', self.pose_callback, 10)
+        self.timer = self.create_timer(0.1, self.draw_flower)  # Timer to call draw_flower every 0.1 seconds
+        self.angle = 0.0
+        self.radius = 1.0
+        self.x = 0.0
+        self.y = 0.0
+        self.near_wall = False  # Flag to track if the turtle is near a wall
+        self.target_distance = 2.0  # Distance to move away from the wall
 
-    def draw_stickman(self):
-        if self.current_step >= len(self.drawing_steps):
-            # Stop the turtle after completing the stickman
-            twist = Twist()
-            twist.linear.x = 0.0
-            twist.angular.z = 0.0
-            self.publisher.publish(twist)
-            self.get_logger().info("Stickman drawing complete!")
-            self.timer.cancel()
-            return
+    def pose_callback(self, pose):
+        # Update the turtle's position
+        self.x = pose.x
+        self.y = pose.y
 
-        action, x, y, angle = self.drawing_steps[self.current_step]
+    def draw_flower(self):
+        if not self.near_wall:
+            # Continue drawing the flower
+            self.angle += 5.0  # Increment the angle for the spiral
+            self.radius += 0.05  # Increment the radius for the spiral
+        self.move_turtle()
+
+    def move_turtle(self):
         twist = Twist()
 
-        if action == "circle":
-            # Draw a circle for the head
-            twist.linear.x = 1.0  # Move forward
-            twist.angular.z = 1.0  # Rotate in place
-            if self.step >= int(2 * math.pi / 0.1):  # Complete the circle
-                self.current_step += 1
-                self.step = 0
-        elif action == "line":
-            # Move in a straight line
-            twist.linear.x = x
-            twist.linear.y = y
-            twist.angular.z = angle
-            if self.step >= 10:  # Adjust steps for line length
-                self.current_step += 1
-                self.step = 0
+        # Check if the turtle is near a wall (within target_distance units)
+        if self.x >= 11.0 - self.target_distance:  # Near right wall
+            self.near_wall = True
+            twist.linear.x = -1.0  # Move left (away from the right wall)
+            twist.angular.z = 0.0  # No rotation
+        elif self.x <= self.target_distance:  # Near left wall
+            self.near_wall = True
+            twist.linear.x = 1.0  # Move right (away from the left wall)
+            twist.angular.z = 0.0  # No rotation
+        elif self.y >= 11.0 - self.target_distance:  # Near top wall
+            self.near_wall = True
+            twist.linear.x = 1.0  # Move down (away from the top wall)
+            twist.angular.z = 1.57  # Rotate to face downward (90 degrees in radians)
+        elif self.y <= self.target_distance:  # Near bottom wall
+            self.near_wall = True
+            twist.linear.x = 1.0  # Move up (away from the bottom wall)
+            twist.angular.z = -1.57  # Rotate to face upward (-90 degrees in radians)
+        else:
+            if self.near_wall:
+                # If the turtle was near a wall but is now safe, resume drawing
+                self.near_wall = False
+            # Continue drawing the flower
+            twist.linear.x = self.radius
+            twist.angular.z = self.angle
 
         # Publish the velocity command
-        self.publisher.publish(twist)
-        self.step += 1
+        self.publisher_.publish(twist)
 
 def main(args=None):
     rclpy.init(args=args)
-    stickman_drawer = StickmanDrawer()
-    rclpy.spin(stickman_drawer)
-    stickman_drawer.destroy_node()
+    node = FlowerDrawer()
+    rclpy.spin(node)  # Keep the program running indefinitely
+    node.destroy_node()
     rclpy.shutdown()
 
 if __name__ == '__main__':
