@@ -31,3 +31,4 @@ source ~/ros2_ws/install/setup.bash
 ``` r
 ros2 launch kir_i4v_random launch_example1.launch.py
 ```
+![alt text](image.png)
