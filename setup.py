@@ -23,7 +23,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'draw_flower = kir_i4v_random.draw_flower:main',
+            'draw_random = kir_i4v_random.draw_random:main',
         ],
     },
 )
