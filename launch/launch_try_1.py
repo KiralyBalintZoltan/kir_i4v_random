@@ -24,9 +24,9 @@ def generate_launch_description():
                 ('/output/cmd_vel', '/turtlesim2/turtle1/cmd_vel'),
             ]
         ),
-         Node(
-             package='kir_i4v_random',
-             executable='draw.random.py',
-             output='screen',
-         ),
+        Node(
+            package='kir_i4v_random',  # A package neve
+            executable='draw.random',  # A telepített végrehajtható neve
+            output='screen',          # Az output beállítása
+        ),
     ])

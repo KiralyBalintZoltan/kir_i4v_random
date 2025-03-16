@@ -29,5 +29,5 @@ source ~/ros2_ws/install/setup.bash
 </details>
 
 ``` r
-ros2 launch kir_i4v_random launch_example1.launch.py
+ros2 launch kir_i4v_random launch_try_1.launch.py
 ```

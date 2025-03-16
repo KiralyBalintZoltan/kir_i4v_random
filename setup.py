@@ -7,7 +7,7 @@ package_name = 'kir_i4v_random'
 setup(
     name=package_name,
     version='0.0.0',
-    packages=find_packages(exclude=['test']),
+    packages=find_packages(include=['kir_i4v_random', 'kir_i4v_random.*']),  # Pontosabb csomagkeresés
     data_files=[
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
@@ -23,7 +23,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'draw.random = kir_i4v_random.draw.random:main',
+            'draw.random = kir_i4v_random/draw.random:main',
         ],
     },
 )
+
