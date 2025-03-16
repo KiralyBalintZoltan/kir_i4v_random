@@ -25,8 +25,8 @@ def generate_launch_description():
             ]
         ),
          Node(
-             package='ros2_python_template',
-             executable='simple_sub_node',
+             package='kir_i4v_random',
+             executable='draw.random.py',
              output='screen',
          ),
     ])
