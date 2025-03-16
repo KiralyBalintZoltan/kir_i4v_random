@@ -31,4 +31,15 @@ source ~/ros2_ws/install/setup.bash
 ``` r
 ros2 launch kir_i4v_random launch_example1.launch.py
 ```
+### Pictures 
 ![alt text](image.png)
+
+### Graph
+
+![alt text](<img/Képernyőkép 2025-03-16 161008.png>)
+``mermaid
+graph TD
+ A[Launch Description] -->|Starts| B[Turtlesim Node];
+    A -->|Starts| C[Project Node];
+    B -->|Package: turtlesim| D[turtlesim_node];
+    C -->|Package: bag_njb| E[project_node];
