@@ -11,7 +11,7 @@ class FlowerDrawer(Node):
         self.subscription = self.create_subscription(Pose, 'turtle1/pose', self.pose_callback, 10)
         self.timer = self.create_timer(0.1, self.draw_flower)  # Timer to call draw_flower every 0.1 seconds
         self.angle = 0.0
-        self.radius = 1.0
+        self.radius = 0.5
         self.x = 0.0
         self.y = 0.0
         self.near_wall = False  # Flag to track if the turtle is near a wall
@@ -33,22 +33,10 @@ class FlowerDrawer(Node):
         twist = Twist()
 
         # Check if the turtle is near a wall (within target_distance units)
-        if self.x >= 11.0 - self.target_distance:  # Near right wall
+        if self.x >= 11.0 - self.target_distance or self.x <= self.target_distance or self.y >= 11.0 - self.target_distance or self.y <= self.target_distance:
             self.near_wall = True
-            twist.linear.x = 1.0  # Move left (away from the right wall)
-            twist.angular.z = 0.0  # No rotation
-        elif self.x <= self.target_distance:  # Near left wall
-            self.near_wall = True
-            twist.linear.x = -1.0  # Move right (away from the left wall)
-            twist.angular.z = 0.0  # No rotation
-        elif self.y >= 11.0 - self.target_distance:  # Near top wall
-            self.near_wall = True
-            twist.linear.x = 1.0  # Move down (away from the top wall)
-            twist.angular.z = 1.0  # Rotate to face downward (90 degrees in radians)
-        elif self.y <= self.target_distance:  # Near bottom wall
-            self.near_wall = True
-            twist.linear.x = 1.0  # Move up (away from the bottom wall)
-            twist.angular.z = -1.0  # Rotate to face upward (-90 degrees in radians)
+            twist.linear.x = 0.0  # Stop moving
+            twist.angular.z = 0.0  # Stop rotating
         else:
             if self.near_wall:
                 # If the turtle was near a wall but is now safe, resume drawing
