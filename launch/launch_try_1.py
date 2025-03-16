@@ -26,7 +26,7 @@ def generate_launch_description():
         ),
         Node(
             package='kir_i4v_random',  # A package neve
-            executable='draw.random',  # A telepített végrehajtható neve
+            executable='draw_random',  # A telepített végrehajtható neve
             output='screen',          # Az output beállítása
         ),
     ])
